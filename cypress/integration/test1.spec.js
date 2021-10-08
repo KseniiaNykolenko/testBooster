@@ -1,45 +1,27 @@
 /// <reference types="cypress" />
 
-it('Top up mobile number online ', () => {
+import {topUpMobNumber} from "../support/pages/topupmobileNumber";
+
+it.only('Top up mobile number online ', () => {
     cy.visit('https://next.privat24.ua/mobile?lang=en')
-    cy.get('[data-qa-node="phone-number"]')
-        .type('951099819')
 
-    cy.get('[data-qa-node="amount"]')
-        .type('1')
-
-    cy.get('[data-qa-node="numberdebitSource"]')
-        .type('4111 1111 1111 1111')
-    cy.get('[data-qa-node="expiredebitSource"]')
-        .type('1224')
-    cy.get('[data-qa-node="cvvdebitSource"]')
-        .type('123')
-
-    cy.get('[data-qa-node="firstNamedebitSource"]')
-        .type('IVAN')
-    cy.get('[data-qa-node="lastNamedebitSource"]')
-        .type('IVANOV')
-
-        .wait(2000)
-    cy.get('button[data-qa-node="submit"]')
-        .click()
-
-    cy.get('[data-qa-node="card"]')
-        .should('have.text', '4111 **** **** 1111')
-    cy.get('[data-qa-node="amount"]')
-        .should('have.text', '1')
-    cy.get('[data-qa-node="currency"]')
-        .should('contain.text','UAH')
-        .eq(0)
-    cy.get('[data-qa-node="commission"]')
-        .should('contain.text', '2')
-   cy.get('[data-qa-node="commission-currency"]')
-        .should('contain.text','UAH')
+    topUpMobNumber.typePhoneNumber('951099819')
+    topUpMobNumber.typeAmount(1)
+    topUpMobNumber.typeNumberDebitSource('4111 1111 1111 1111')
+    topUpMobNumber.typeExpireDebitSource('1224')
+    topUpMobNumber.typeCvvDebitSource('123')
+    topUpMobNumber.typeFistandLastName('IVAN','IVANOV')
+    topUpMobNumber.checkSubmitButton()
+    topUpMobNumber.checkDebitCard('4111 **** **** 1111')
+    topUpMobNumber.checkAmount('1')
+    topUpMobNumber.checkCurrency('UAH')
+    topUpMobNumber.checkComission('2')
+    topUpMobNumber.checkComissionCurrency('UAH')
 });
 
 
 
-it.only('Transfer between your accounts, from/to the VISA/MasterCard card of other Ukrainian and foreign banks', () => {
+it('Transfer between your accounts, from/to the VISA/MasterCard card of other Ukrainian and foreign banks', () => {
     cy.visit('https://next.privat24.ua/money-transfer/card?lang=en')
     cy.get('[data-qa-node="numberdebitSource"]')
         .type('4111 1111 1111 1111')
@@ -83,11 +65,4 @@ it.only('Transfer between your accounts, from/to the VISA/MasterCard card of oth
         .should('have.text', '300 UAH')
     cy.get('.sc-iQKALj.ldQFQo')
         .should('contain.text', '384.25')
-
-
-
-
-
-
-
 })
