@@ -1,22 +1,8 @@
 export class TopUpMobileNumber {
+
 typePhoneNumber(phoneNumber) {
     cy.get('[data-qa-node="phone-number"]')
         .type(phoneNumber)
-}
-
-typeAmount (amount) {
-    cy.get('[data-qa-node="amount"]')
-        .type(amount)
-}
-
-typeNumberDebitSource (numberDebitSource) {
-    cy.get('[data-qa-node="numberdebitSource"]')
-        .type(numberDebitSource)
-}
-
-typeExpireDebitSource (expireDebitSource) {
-    cy.get('[data-qa-node="expiredebitSource"]')
-        .type(expireDebitSource)
 }
 
 typeCvvDebitSource(cvvDebitSource) {
